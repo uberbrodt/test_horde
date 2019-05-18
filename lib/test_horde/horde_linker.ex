@@ -41,7 +41,7 @@ defmodule TestHorde.HordeLinker do
   @impl GenServer
   def handle_info({:nodeup, node}, %{supervisor_name: sup} = state) do
     Logger.debug(fn -> "Received :nodeup message from #{inspect(node)}" end)
-    Horde.Cluster.set_members(sup, [{sup, node}])
+    connect_hordes(sup)
     {:noreply, state}
   end
 
