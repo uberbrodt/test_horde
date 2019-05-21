@@ -52,13 +52,9 @@ defmodule TestHorde.HordeLinker do
   end
 
   @impl GenServer
-  def handle_info(
-        :connect_hordes,
-        %{sync_interval: si, supervisor_name: sup, callback: cb} = state
-      ) do
+  def handle_info( :connect_hordes, %{sync_interval: si, supervisor_name: sup} = state) do
     Process.send_after(self(), :connect_hordes, si)
     :ok = connect_hordes(sup)
-    cb.()
     {:noreply, state}
   end
 
